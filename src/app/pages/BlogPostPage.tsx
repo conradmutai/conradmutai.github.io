@@ -1,0 +1,80 @@
+import { useEffect, useRef, useState } from "react";
+import { Link, Navigate, useParams } from "react-router";
+import { PageFooter, PageNav } from "../components/PageChrome";
+import { blogPosts } from "../content";
+
+export default function BlogPostPage() {
+  const { slug } = useParams();
+  const post = blogPosts.find((item) => item.slug === slug);
+  const articleRef = useRef<HTMLElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const update = () => {
+      const article = articleRef.current;
+      if (!article) return;
+      const scrolled = window.scrollY - article.offsetTop;
+      const scrollable = article.offsetHeight - window.innerHeight;
+      setProgress(scrollable <= 0 ? 1 : Math.min(1, Math.max(0, scrolled / scrollable)));
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [slug]);
+
+  // Unknown slugs fall back to the index rather than the generic 404.
+  if (!post) return <Navigate to="/writing" replace />;
+
+  const currentIndex = blogPosts.indexOf(post);
+  const nextPost = blogPosts[(currentIndex + 1) % blogPosts.length];
+
+  return (
+    <div className="interior-page article-page">
+      <PageNav />
+      <main>
+        <article ref={articleRef}>
+          <header className="article-header">
+            <Link className="back-link" to="/writing">← All field notes</Link>
+            <div className="article-meta"><span>{post.category}</span><span>{post.date}</span><span>{post.read}</span></div>
+            <h1>{post.title}</h1>
+            <p>{post.intro}</p>
+          </header>
+          <div className="article-body">
+            <aside>
+              <span>Issue {post.index}</span>
+              <div
+                className="article-progress"
+                role="progressbar"
+                aria-label="Reading progress"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={Math.round(progress * 100)}
+              >
+                <i style={{ width: `${progress * 100}%` }} />
+              </div>
+            </aside>
+            <div className="article-copy">
+              {post.sections.map((section) => (
+                <section key={section.heading}>
+                  <h2>{section.heading}</h2>
+                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.code && <pre><code>{section.code}</code></pre>}
+                </section>
+              ))}
+            </div>
+          </div>
+        </article>
+        <Link className="next-article" to={`/writing/${nextPost.slug}`}>
+          <span>Read next / {nextPost.index}</span>
+          <strong>{nextPost.title}</strong>
+          <i aria-hidden="true">↗</i>
+        </Link>
+      </main>
+      <PageFooter />
+    </div>
+  );
+}
