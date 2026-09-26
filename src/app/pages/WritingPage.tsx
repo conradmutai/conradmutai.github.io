@@ -8,7 +8,7 @@ export default function WritingPage() {
       <PageNav />
       <main>
         <section className="writing-hero">
-          <span className="eyebrow">Field notes / 2025</span>
+          <span className="eyebrow">Field notes / 2026</span>
           <h1>Thinking<br /><em>out loud.</em></h1>
           <p>Notes on software, systems, design, and the messy process of making things work.</p>
         </section>

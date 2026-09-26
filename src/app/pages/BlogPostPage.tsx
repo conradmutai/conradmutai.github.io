@@ -61,8 +61,31 @@ export default function BlogPostPage() {
               {post.sections.map((section) => (
                 <section key={section.heading}>
                   <h2>{section.heading}</h2>
+                  {section.flag && (
+                    <p className={`section-flag flag-${section.flag.level}`}>
+                      <b>{section.flag.label}</b>
+                      <span>Target: {section.flag.target}</span>
+                    </p>
+                  )}
                   {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.items && (
+                    <ul className="checklist">
+                      {section.items.map((item) => <li key={item}>{item}</li>)}
+                    </ul>
+                  )}
                   {section.code && <pre><code>{section.code}</code></pre>}
+                  {section.link &&
+                    (section.link.to.startsWith("http")
+                      ? (
+                        <a className="article-link" href={section.link.to} target="_blank" rel="noreferrer">
+                          {section.link.label} <i aria-hidden="true">↗</i>
+                        </a>
+                      )
+                      : (
+                        <Link className="article-link" to={section.link.to}>
+                          {section.link.label} <i aria-hidden="true">→</i>
+                        </Link>
+                      ))}
                 </section>
               ))}
             </div>

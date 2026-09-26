@@ -39,54 +39,183 @@ const MenuIcon = ({ size = 22, className = "" }: IconProps) => (
   </svg>
 );
 
+const digitSoftmax = [0.4, 0.1, 1.1, 0.6, 0.2, 0.9, 0.3, 99.5, 1.4, 2.2];
+const attentionTokens = ["the", "cat", "sat", "on", "the", "mat"];
+const upcBars = [3, 1, 2, 1, 3, 2, 1, 1, 3, 1, 2, 2, 1, 3, 1, 1, 2, 1, 3, 2, 1, 2, 1, 3, 1, 1, 2, 3];
+const upcDigits = ["0", "3", "6", "0", "0", "0", "2", "9", "1", "4", "5", "2"];
+const voxels = [
+  { col: 0, row: 0, height: 1, tone: "grass" },
+  { col: 1, row: 0, height: 2, tone: "grass" },
+  { col: 2, row: 0, height: 1, tone: "stone" },
+  { col: 0, row: 1, height: 2, tone: "grass" },
+  { col: 1, row: 1, height: 3, tone: "grass" },
+  { col: 2, row: 1, height: 2, tone: "stone" },
+  { col: 0, row: 2, height: 1, tone: "stone" },
+  { col: 1, row: 2, height: 2, tone: "grass" },
+  { col: 2, row: 2, height: 1, tone: "grass" },
+];
+const detections = [
+  { label: "#9", top: "22%", left: "16%", width: "15%", height: "30%", tone: "primary" },
+  { label: "#6", top: "48%", left: "44%", width: "14%", height: "28%", tone: "primary" },
+  { label: "#4", top: "18%", left: "68%", width: "14%", height: "29%", tone: "secondary" },
+  { label: "ball", top: "62%", left: "28%", width: "7%", height: "13%", tone: "ball" },
+];
+
 function ProjectVisual({ type }: { type: Project["visual"] }) {
-  if (type === "collab") {
+  if (type === "digits") {
     return (
-      <div className="visual collab-visual" aria-hidden="true">
-        <div className="mini-toolbar"><i /><i /><i /><i /></div>
-        <div className="note note-a">ship it!</div>
-        <div className="note note-b">sync layer</div>
-        <div className="cursor cursor-a"><span>conrad</span></div>
-        <div className="cursor cursor-b"><span>sam</span></div>
-        <svg viewBox="0 0 400 240"><path d="M78 174C118 98 180 207 233 108s84-57 96-10" /></svg>
-      </div>
-    );
-  }
-  if (type === "compiler") {
-    return (
-      <div className="visual compiler-visual" aria-hidden="true">
-        <div className="terminal-top"><i /><i /><i /><span>lumen — zsh</span></div>
-        <div className="code-lines">
-          <p><b>fn</b> fib(n: int) -&gt; int &#123;</p>
-          <p>&nbsp;&nbsp;<b>if</b> n &lt; 2 &#123; <em>return</em> n; &#125;</p>
-          <p>&nbsp;&nbsp;<em>return</em> fib(n - 1) +</p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fib(n - 2);</p>
-          <p>&#125;</p>
-          <p className="success">✓ compiled in 24ms</p>
+      <div className="visual digits-visual" aria-hidden="true">
+        <div className="digits-frame">
+          <div className="digit-canvas">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M24 26h54L44 82" />
+              <path d="M32 54h30" />
+            </svg>
+            <span className="canvas-note">28 × 28 · grayscale</span>
+          </div>
+          <div className="digit-readout">
+            <div className="softmax">
+              {digitSoftmax.map((score, digit) => (
+                <div className={`softmax-col${digit === 7 ? " top" : ""}`} key={digit}>
+                  <i style={{ height: `${Math.max(4, Math.sqrt(score / 99.5) * 100)}%` }} />
+                  <span>{digit}</span>
+                </div>
+              ))}
+            </div>
+            <div className="digit-metrics">
+              <b>pred 7</b>
+              <span>val acc 99.52%</span>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
-  if (type === "orbit") {
+  if (type === "cnn") {
     return (
-      <div className="visual orbit-visual" aria-hidden="true">
-        <div className="orbit-ring ring-one" />
-        <div className="orbit-ring ring-two" />
-        <div className="planet planet-main">O</div>
-        <div className="planet planet-a" />
-        <div className="planet planet-b" />
-        <div className="planet planet-c" />
-        <span className="orbit-label label-a">research</span>
-        <span className="orbit-label label-b">prototype</span>
+      <div className="visual cnn-visual" aria-hidden="true">
+        <div className="net-pipeline">
+          <div className="net-stage">
+            <div className="map-stack single"><i /></div>
+            <span>input 28²</span>
+          </div>
+          <div className="net-arrow" />
+          <div className="net-stage">
+            <div className="map-stack"><i /><i /><i /><i /></div>
+            <span>conv 3×3</span>
+          </div>
+          <div className="net-arrow" />
+          <div className="net-stage">
+            <div className="map-stack small"><i /><i /><i /><i /></div>
+            <span>maxpool 2×2</span>
+          </div>
+          <div className="net-arrow" />
+          <div className="net-stage">
+            <div className="flatten"><i /><i /><i /><i /><i /><i /><i /><i /></div>
+            <span>flatten</span>
+          </div>
+          <div className="net-arrow" />
+          <div className="net-stage">
+            <div className="logits">
+              <i /><i /><i /><i className="hot" /><i /><i /><i /><i /><i /><i />
+            </div>
+            <span>softmax 10</span>
+          </div>
+        </div>
+        <span className="net-note">forward + backward pass, written by hand in NumPy</span>
+      </div>
+    );
+  }
+  if (type === "gpt") {
+    return (
+      <div className="visual gpt-visual" aria-hidden="true">
+        <div className="token-strip">
+          {attentionTokens.map((token, index) => <span key={`${token}-${index}`}>{token}</span>)}
+          <span className="next">mat</span>
+        </div>
+        <div className="attn-matrix">
+          {attentionTokens.map((rowToken, row) => (
+            <div className="attn-row" key={`row-${rowToken}-${row}`}>
+              {attentionTokens.map((colToken, col) => (
+                <i
+                  key={`cell-${colToken}-${col}`}
+                  className={col > row ? "masked" : ""}
+                  style={col > row ? undefined : { opacity: 0.18 + ((row * 3 + col * 5) % 5) * 0.16 }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        <span className="gpt-note">head 3 / 4 · causal mask</span>
+      </div>
+    );
+  }
+  if (type === "asm") {
+    return (
+      <div className="visual upc-visual" aria-hidden="true">
+        <div className="barcode">
+          {upcBars.map((weight, index) => (
+            <i key={index} style={{ width: `${weight * 2}px`, opacity: index % 2 ? 0 : 1 }} />
+          ))}
+        </div>
+        <div className="upc-digits">
+          {upcDigits.map((digit, index) => (
+            <span className={index === upcDigits.length - 1 ? "check" : ""} key={index}>{digit}</span>
+          ))}
+        </div>
+        <div className="upc-math">
+          <p>odd×3 + even = 120</p>
+          <p>120 mod 10 = 0</p>
+          <p className="verdict">✓ check digit valid</p>
+        </div>
+        <span className="upc-note">armv7 · big endian</span>
+      </div>
+    );
+  }
+  if (type === "voxel") {
+    return (
+      <div className="visual voxel-visual" aria-hidden="true">
+        <div className="voxel-field">
+          {voxels.flatMap((stack) =>
+            Array.from({ length: stack.height }, (_, level) => (
+              <i
+                className={`voxel tone-${level === stack.height - 1 ? stack.tone : "stone"}`}
+                key={`${stack.col}-${stack.row}-${level}`}
+                style={{
+                  left: `${50 + (stack.col - stack.row) * 15}%`,
+                  top: `${46 + (stack.col + stack.row) * 8.5 - level * 11}%`,
+                  zIndex: (stack.col + stack.row) * 10 + level,
+                }}
+              />
+            )),
+          )}
+        </div>
+        <div className="voxel-hud">
+          <span>chunk 16³</span>
+          <span>greedy meshing</span>
+          <span>glsl</span>
+        </div>
       </div>
     );
   }
   return (
-    <div className="visual search-visual" aria-hidden="true">
-      <div className="search-box"><span>tinysearch.dev</span><kbd>⌘ K</kbd></div>
-      <div className="result"><i /><div><b>Distributed systems notes</b><span>systems.page / notes</span></div><em>98%</em></div>
-      <div className="result"><i /><div><b>A visual guide to indexing</b><span>learn.dev / search</span></div><em>91%</em></div>
-      <div className="result"><i /><div><b>Ranking from first principles</b><span>archive.io / ir</span></div><em>87%</em></div>
+    <div className="visual pitch-visual" aria-hidden="true">
+      <svg className="pitch-lines" viewBox="0 0 320 200" preserveAspectRatio="none">
+        <rect x="6" y="6" width="308" height="188" />
+        <path d="M160 6v188" />
+        <circle cx="160" cy="100" r="30" />
+        <path d="M6 58h34v84H6M314 58h-34v84h34" />
+        <circle cx="160" cy="100" r="2.5" className="spot" />
+      </svg>
+      {detections.map((box) => (
+        <div className={`detection tone-${box.tone}`} key={box.label} style={{ top: box.top, left: box.left, width: box.width, height: box.height }}>
+          <span>{box.label}</span>
+        </div>
+      ))}
+      <div className="pitch-hud">
+        <span className="live">tracking</span>
+        <span>4 objects · frame 0912</span>
+      </div>
     </div>
   );
 }
@@ -161,11 +290,19 @@ export default function HomePage() {
       <section className="hero" id="top">
         <div className="hero-kicker reveal reveal-1"><span>CS student &amp; software engineer</span><span>Based in Toronto, Canada</span></div>
         <div className="hero-heading reveal reveal-2">
-          <h1>I build things<br />for the <em>web</em><span className="dot">.</span></h1>
-          <svg className="scribble" viewBox="0 0 310 28" aria-hidden="true"><path d="M4 18c58-13 151-12 298-5M34 24c70-8 138-9 228-5" /></svg>
+          <h1>
+            Building solutions<br />for the{" "}
+            <em>
+              future
+              <svg className="scribble" viewBox="0 0 310 28" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M4 18c58-13 151-12 298-5M34 24c70-8 138-9 228-5" vectorEffect="non-scaling-stroke" />
+              </svg>
+            </em>
+            <span className="dot">.</span>
+          </h1>
         </div>
         <div className="hero-bottom reveal reveal-3">
-          <p>I'm Conrad — a computer science student obsessed with building useful, playful, and occasionally weird software.</p>
+          <p>I'm Conrad — a computer science student obsessed with the continuous possibilities of the growth of machines.</p>
           <a className="circle-link" href="#work" aria-label="See selected projects">
             <ArrowUpRight size={28} />
             <svg viewBox="0 0 100 100" aria-hidden="true"><path id="circlePath" d="M50,50 m-35,0 a35,35 0 1,1 70,0 a35,35 0 1,1 -70,0" fill="none" /><text><textPath href="#circlePath">SCROLL TO EXPLORE • SCROLL TO EXPLORE • </textPath></text></svg>
@@ -240,10 +377,10 @@ export default function HomePage() {
                 <span className="project-number">/{project.number}</span>
                 <span>{project.category}</span>
               </div>
-              <div className="project-title-row">
+              <a className="project-title-row" href={project.url} target="_blank" rel="noreferrer">
                 <h3>{project.title}</h3>
                 <span className="project-arrow"><ArrowUpRight size={22} /></span>
-              </div>
+              </a>
               <p>{project.description}</p>
               <div className="tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             </article>
@@ -261,14 +398,14 @@ export default function HomePage() {
           <span className="portrait-caption">currently debugging life</span>
         </div>
         <div className="about-copy">
-          <p className="big-copy">I care about the tiny details — the <em>12ms</em> shaved off a query, the animation that makes an interface click, and the variable name that future-me won't hate.</p>
+          <p className="big-copy">I care about the tiny details — the <em>0.01%</em> improvement in accuracy, the colorful graph outputs, and the variable name that future-me won't hate.</p>
           <div className="about-columns">
-            <p>I'm currently studying Computer Science at the University of Toronto and exploring the space where systems engineering meets thoughtful product design.</p>
-            <p>When I'm away from my editor, you'll find me bouldering, sketching typefaces, or making pour-over coffee way more complicated than it needs to be.</p>
+            <p>I'm currently studying Computer Science at the Western University and exploring the machine learning landscape and its endless possibilities.</p>
+            <p>When I'm away from my editor, you'll find me in the gym, keeping up with every sport, or having a little party!</p>
           </div>
           <div className="stack">
             <span>often working with</span>
-            <div><b>TypeScript</b><b>React</b><b>Rust</b><b>Python</b><b>Postgres</b><b>Figma</b></div>
+            <div><b>Python</b><b>PyTorch</b><b>C</b><b>C#</b><b>C++</b><b>OpenGL</b><b>Java</b><b>Figma</b></div>
           </div>
         </div>
       </section>
