@@ -246,6 +246,10 @@ footer h2 em { font-family: Georgia, serif; font-weight: 400; text-transform: lo
 .socials a:hover { background: var(--lime); color: var(--ink); border-color: var(--lime); }
 
 @media (max-width: 760px) {
+  /* Safari fills the area past the page (behind the bottom toolbar, and the
+     overscroll bounce) with the root background. Make it match the footer
+     so there's no paper strip under it; body keeps --paper for the content. */
+  html { background: var(--ink); overscroll-behavior-y: none; }
   .nav-wrap { height: 68px; }
   .availability { display: none; }
   .menu-button { display: grid; padding: 7px; cursor: pointer; }
