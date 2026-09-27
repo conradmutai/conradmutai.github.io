@@ -74,8 +74,8 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "Getting Started",
     index: "001",
-    date: "September 26th, 2026",
-    read: "2 min read",
+    date: "Sep 26th, 2026",
+    read: "6 min read",
     category: "Personal",
     title: "Where Do I Stand in the Field and My Ambitions",
     excerpt: "Notes from my 2 year journey and where I'm going from here.",
@@ -94,89 +94,55 @@ export const blogPosts: BlogPost[] = [
         paragraphs: [
           "Machine Learning was one thing I found that I enjoyed, but apart from that I started to find interest in game development through computer graphics; OpenGL was a framework that I stumbled upon when my friends kept raving on about it, and I didn't realize that the game I so love, Minecraft, utilized a framework that was developed with OpenGL.",
           "It started with me doing a few tutorials, but then it turned into a genuine love for doing it, and I decided that post finishing the tutorial I wanted to make an engine which would generate a small world, and several other factors. It ended up being one of the most interesting developments I have made of recent and going forward I want to continue to build upon Computer Graphics, and specifically read more on Vulkan and/or Metal as it is the new era of game development.",
-          "For more on my Voxel Engine, I will soon publish a blog post going into depth about the topic!",
+          
         ],
       },
       {
         heading: "Where am I Going From Here?",
         paragraphs: [
           "I want to further build on the Machine Learning and game development in various ways.",
-          "For Machine Learning, I currently have a roadmap of projects that I aim to accomplish going forward:",
+          "For more on my Voxel Engine, I will soon publish a blog post going into depth about the topic.",
+          "And for Machine Learning, I currently have a roadmap of projects that I aim to accomplish going forward this year:",
         ],
         link: { label: "Read the ML infrastructure roadmap", to: "/writing/Machine%20Learning%20Infra%20Roadmap" },
       },
     ],
   },
-  {
-    slug: "websockets-without-hand-waving",
-    index: "002",
-    date: "Apr 02, 2025",
-    read: "6 min read",
-    category: "Engineering",
-    title: "WebSockets without the hand-waving",
-    excerpt: "A practical mental model for presence, reconnects, and the messages in between.",
-    intro:
-      "A WebSocket gives you a pipe. A reliable collaborative experience needs a protocol, a clock, a reconnect strategy, and a clear answer to who owns the truth.",
-    sections: [
-      {
-        heading: "Connection is not presence",
-        paragraphs: [
-          "A connected socket only tells you that a transport exists right now. Presence is a product-level concept: active, idle, away, or gone. Model it explicitly and let the server expire stale sessions.",
-          "Heartbeats are useful, but they should not become your application protocol. Keep transport health and user activity as separate signals.",
-        ],
-      },
-      {
-        heading: "Design every message twice",
-        paragraphs: [
-          "First design the happy-path message. Then design it again assuming it will arrive twice, arrive late, or arrive after the client has reconnected.",
-          "Small event IDs and monotonically increasing sequence numbers do an unreasonable amount of work. They make deduplication, replay, and debugging possible.",
-        ],
-        code: `type Event = {\n  id: string;\n  roomId: string;\n  sequence: number;\n  payload: unknown;\n};`,
-      },
-      {
-        heading: "Reconnection is a sync problem",
-        paragraphs: [
-          "When a client returns, don't just reconnect it—reconcile it. Send the last known sequence and ask for everything after it. If the gap is too large, request a fresh snapshot.",
-          "The goal is not to pretend the connection never dropped. The goal is to make recovery predictable.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "making-interfaces-feel-alive",
-    index: "003",
-    date: "Mar 11, 2025",
-    read: "4 min read",
-    category: "Design",
-    title: "Making interfaces feel alive",
-    excerpt: "A few rules for motion that adds meaning instead of getting in the way.",
-    intro:
-      "The best interface motion feels less like decoration and more like physics. It explains where something came from, what changed, and where attention should go next.",
-    sections: [
-      {
-        heading: "Motion needs a job",
-        paragraphs: [
-          "Before adding an animation, finish this sentence: this motion helps the user understand ____. If the blank stays empty, skip it.",
-          "A menu can reveal its origin. A saved state can confirm completion. A reordered list can preserve spatial context. Those are jobs; bouncing because it looks fun is not.",
-        ],
-      },
-      {
-        heading: "Distance should shape duration",
-        paragraphs: [
-          "Elements traveling farther generally need more time, but the relationship should not be linear. Long transitions feel slow, so compress the range and use easing to imply momentum.",
-          "Most of my interface transitions land between 160 and 320 milliseconds. The exact value matters less than the rhythm being consistent.",
-        ],
-        code: `.panel {\n  transition: transform 240ms cubic-bezier(.2,.8,.2,1);\n}`,
-      },
-      {
-        heading: "Respect stillness",
-        paragraphs: [
-          "Reduced-motion preferences are not an optional polish pass. Build them alongside the default experience so the interface remains coherent without sweeping movement.",
-          "Good motion earns its place. Great motion also knows when to disappear.",
-        ],
-      },
-    ],
-  },
+  // {
+  //   slug: "websockets-without-hand-waving",
+  //   index: "002",
+  //   date: "Apr 02, 2025",
+  //   read: "6 min read",
+  //   category: "Engineering",
+  //   title: "WebSockets without the hand-waving",
+  //   excerpt: "A practical mental model for presence, reconnects, and the messages in between.",
+  //   intro:
+  //     "A WebSocket gives you a pipe. A reliable collaborative experience needs a protocol, a clock, a reconnect strategy, and a clear answer to who owns the truth.",
+  //   sections: [
+  //     {
+  //       heading: "Connection is not presence",
+  //       paragraphs: [
+  //         "A connected socket only tells you that a transport exists right now. Presence is a product-level concept: active, idle, away, or gone. Model it explicitly and let the server expire stale sessions.",
+  //         "Heartbeats are useful, but they should not become your application protocol. Keep transport health and user activity as separate signals.",
+  //       ],
+  //     },
+  //     {
+  //       heading: "Design every message twice",
+  //       paragraphs: [
+  //         "First design the happy-path message. Then design it again assuming it will arrive twice, arrive late, or arrive after the client has reconnected.",
+  //         "Small event IDs and monotonically increasing sequence numbers do an unreasonable amount of work. They make deduplication, replay, and debugging possible.",
+  //       ],
+  //       code: `type Event = {\n  id: string;\n  roomId: string;\n  sequence: number;\n  payload: unknown;\n};`,
+  //     },
+  //     {
+  //       heading: "Reconnection is a sync problem",
+  //       paragraphs: [
+  //         "When a client returns, don't just reconnect it—reconcile it. Send the last known sequence and ask for everything after it. If the gap is too large, request a fresh snapshot.",
+  //         "The goal is not to pretend the connection never dropped. The goal is to make recovery predictable.",
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
 
 export type Project = {
