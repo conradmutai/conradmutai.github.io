@@ -1,3 +1,8 @@
+/** An image placed between paragraphs. Files go in public/ (e.g. public/journal/). */
+export type InlineImage = { src: string; alt: string; caption?: string };
+/** A paragraph of text, or an image at that point in the text. */
+export type Block = string | InlineImage;
+
 export type BlogPost = {
   slug: string;
   index: string;
@@ -9,7 +14,7 @@ export type BlogPost = {
   intro: string;
   sections: Array<{
     heading: string;
-    paragraphs: string[];
+    paragraphs: Block[];
     code?: string;
     flag?: { level: "critical" | "high" | "stretch"; label: string; target: string };
     items?: string[];
@@ -239,10 +244,14 @@ export type JournalEntry = {
   category: string; // e.g. "Movies", "Sports", "Life"
   title: string;
   excerpt: string; // one line shown on the journal list
-  body: string[]; // one string per paragraph
+  // One string per paragraph. To put an image between paragraphs, add an object:
+  // body: ["First paragraph.", { src: "/journal/x.jpg", alt: "...", caption: "optional" }, "Next paragraph."]
+  body: Block[];
+  // Optional star rating for a show / movie / book: 0–5, halves allowed (e.g. 4.5).
+  rating?: number;
   // Optional: for longer entries, split into titled sections (shown after `body`).
   // e.g. sections: [{ heading: "Why I almost quit", paragraphs: ["...", "..."] }]
-  sections?: Array<{ heading?: string; paragraphs: string[] }>;
+  sections?: Array<{ heading?: string; paragraphs: Block[] }>;
   // Optional, shown to the right of the title. 1 image = single photo,
   // 2 = side by side, 3 or more = collage (first 4 are used).
   images?: JournalImage[];

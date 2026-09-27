@@ -1,6 +1,8 @@
 import { Link, Navigate, useParams } from "react-router";
 import { PageFooter, PageNav } from "../components/PageChrome";
 import { journalEntries, type JournalImage } from "../content";
+import { ArticleBlocks } from "../components/ArticleBlocks";
+import { StarRating } from "../components/StarRating";
 import { useReadingProgress } from "../hooks/useReadingProgress";
 
 function EntryMedia({ images }: { images: JournalImage[] }) {
@@ -48,6 +50,7 @@ export default function JournalEntryPage() {
                 </div>
               )}
               <h1>{entry.title || "Untitled"}</h1>
+              {entry.rating !== undefined && <StarRating value={entry.rating} className="entry-rating" />}
               {entry.excerpt && <p>{entry.excerpt}</p>}
             </div>
             {images.length > 0 && <EntryMedia images={images} />}
@@ -70,7 +73,7 @@ export default function JournalEntryPage() {
               {sections.map((section, i) => (
                 <section key={section.heading ?? i}>
                   {section.heading && <h2>{section.heading}</h2>}
-                  {section.paragraphs.map((paragraph, j) => <p key={j}>{paragraph}</p>)}
+                  <ArticleBlocks blocks={section.paragraphs} />
                 </section>
               ))}
             </div>

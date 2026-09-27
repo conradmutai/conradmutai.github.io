@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from "react-router";
 import { PageFooter, PageNav } from "../components/PageChrome";
 import { blogPosts } from "../content";
+import { ArticleBlocks } from "../components/ArticleBlocks";
 import { useReadingProgress } from "../hooks/useReadingProgress";
 
 export default function BlogPostPage() {
@@ -49,7 +50,7 @@ export default function BlogPostPage() {
                       <span>Target: {section.flag.target}</span>
                     </p>
                   )}
-                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  <ArticleBlocks blocks={section.paragraphs} />
                   {section.items && (
                     <ul className="checklist">
                       {section.items.map((item) => <li key={item}>{item}</li>)}

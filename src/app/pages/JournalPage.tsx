@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { PageFooter, PageNav } from "../components/PageChrome";
 import { journalEntries } from "../content";
+import { StarRating } from "../components/StarRating";
 
 export default function JournalPage() {
   return (
@@ -17,7 +18,12 @@ export default function JournalPage() {
             <Link className="writing-card" to={`/journal/${entry.slug}`} key={entry.slug}>
               <span className="writing-number">{String(journalEntries.length - 1 - i).padStart(3, "0")}</span>
               <div>
-                {entry.date && <div className="post-meta"><span>{entry.date}</span></div>}
+                {(entry.date || entry.rating !== undefined) && (
+                  <div className="post-meta">
+                    {entry.date && <span>{entry.date}</span>}
+                    {entry.rating !== undefined && <StarRating value={entry.rating} className="list-rating" />}
+                  </div>
+                )}
                 <h2>{entry.title || "Untitled"}</h2>
                 {entry.excerpt && <p>{entry.excerpt}</p>}
               </div>
