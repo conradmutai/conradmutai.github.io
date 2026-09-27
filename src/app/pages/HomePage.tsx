@@ -56,11 +56,45 @@ const voxels = [
 ];
 // Positions are % of the pitch itself (.pitch-stage), not the card.
 const detections = [
-  { label: "#9", top: "30%", left: "24%", width: "5%", height: "15%", tone: "primary" },
-  { label: "#6", top: "56%", left: "55%", width: "5%", height: "15%", tone: "primary" },
-  { label: "#4", top: "22%", left: "70%", width: "5%", height: "15%", tone: "secondary" },
-  { label: "ball", top: "66%", left: "36%", width: "2.4%", height: "auto", tone: "ball" },
+  { label: "#1", top: "44%", left: "3.5%", tone: "primary" },
+  { label: "#4", top: "26%", left: "20%", tone: "primary" },
+  { label: "#5", top: "62%", left: "18%", tone: "primary" },
+  { label: "#8", top: "43%", left: "36%", tone: "primary" },
+  { label: "#9", top: "22%", left: "52%", tone: "primary" },
+  { label: "#3", top: "54%", left: "60%", tone: "secondary" },
+  { label: "#7", top: "30%", left: "72%", tone: "secondary" },
+  { label: "#10", top: "68%", left: "70%", tone: "secondary" },
+  { label: "#1", top: "44%", left: "92.5%", tone: "secondary" },
+  { label: "ball", top: "50.5%", left: "44%", tone: "ball" },
 ];
+// Alternating mowing stripes, in pitch SVG units.
+const pitchStripes = Array.from({ length: 7 }, (_, i) => 6 + i * 44);
+
+// A blurry, MNIST-style 7: each of the 28×28 pixels gets a grayscale value from its
+// distance to a hand-drawn stroke, so edges fade out instead of being crisp.
+const sevenStroke: [number, number][] = [[7.5, 8], [13, 7.2], [20.5, 6.6], [18.5, 11], [16, 16], [13.2, 22.5]];
+function distToSegment(px: number, py: number, [ax, ay]: [number, number], [bx, by]: [number, number]) {
+  const dx = bx - ax, dy = by - ay;
+  const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)));
+  return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+}
+const sevenPixels = Array.from({ length: 28 * 28 }, (_, i) => {
+  const x = (i % 28) + 0.5, y = Math.floor(i / 28) + 0.5;
+  let d = Infinity;
+  for (let k = 0; k < sevenStroke.length - 1; k++) d = Math.min(d, distToSegment(x, y, sevenStroke[k], sevenStroke[k + 1]));
+  const v = Math.max(0, Math.min(1, 1 - (d - 0.9) / 1.6));
+  return { x: i % 28, y: Math.floor(i / 28), v: Math.round(v * v * 100) / 100 };
+}).filter((px) => px.v > 0.04);
+
+// Isometric voxel layout, in units of one cube's width. The stage has a fixed
+// aspect ratio so the chunk always fits inside the card.
+const VOXEL_STAGE = { w: 3.3, h: 3.2 };
+const HEX_H = 1.155;
+function voxelPosition(col: number, row: number, level: number) {
+  const x = VOXEL_STAGE.w / 2 + (col - row) * 0.5;
+  const y = 1.25 + (col + row) * (HEX_H / 4) - level * (HEX_H / 2);
+  return { left: `${(x / VOXEL_STAGE.w) * 100}%`, top: `${(y / VOXEL_STAGE.h) * 100}%` };
+}
 
 function ProjectVisual({ type }: { type: Project["visual"] }) {
   if (type === "digits") {
@@ -68,9 +102,10 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
       <div className="visual digits-visual" aria-hidden="true">
         <div className="digits-frame">
           <div className="digit-canvas">
-            <svg viewBox="0 0 100 100">
-              <path d="M24 26h54L44 82" />
-              <path d="M32 54h30" />
+            <svg className="digit-pixels" viewBox="0 0 28 28" shapeRendering="crispEdges">
+              {sevenPixels.map((px) => (
+                <rect key={`${px.x}-${px.y}`} x={px.x} y={px.y} width="1" height="1" fillOpacity={px.v} />
+              ))}
             </svg>
             <span className="canvas-note">28 × 28 · grayscale</span>
           </div>
@@ -182,11 +217,7 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
               <i
                 className={`voxel tone-${level === stack.height - 1 ? stack.tone : "stone"}`}
                 key={`${stack.col}-${stack.row}-${level}`}
-                style={{
-                  left: `${50 + (stack.col - stack.row) * 15}%`,
-                  top: `${46 + (stack.col + stack.row) * 8.5 - level * 11}%`,
-                  zIndex: (stack.col + stack.row) * 10 + level,
-                }}
+                style={{ ...voxelPosition(stack.col, stack.row, level), zIndex: (stack.col + stack.row) * 10 + level }}
               />
             )),
           )}
@@ -203,21 +234,33 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
     <div className="visual pitch-visual" aria-hidden="true">
       <div className="pitch-stage">
         <svg className="pitch-lines" viewBox="0 0 320 200">
+          {pitchStripes.map((x, i) => (i % 2 === 0 ? <rect key={x} className="stripe" x={x} y="6" width="22" height="188" /> : null))}
           <rect x="6" y="6" width="308" height="188" />
           <path d="M160 6v188" />
-          <circle cx="160" cy="100" r="30" />
-          <path d="M6 58h34v84H6M314 58h-34v84h34" />
-          <circle cx="160" cy="100" r="2.5" className="spot" />
+          <circle cx="160" cy="100" r="27" />
+          <path d="M6 44.5h48v111H6M314 44.5h-48v111h48" />
+          <path d="M6 74.5h16v51H6M314 74.5h-16v51h16" />
+          <path d="M54 79.5a26 26 0 0 1 0 41M266 79.5a26 26 0 0 0 0 41" />
+          <path d="M6 90H2v20h4M314 90h4v20h-4" />
+          <path d="M6 9a3 3 0 0 0 3-3M311 6a3 3 0 0 0 3 3M6 191a3 3 0 0 1 3 3M311 194a3 3 0 0 1 3-3" />
+          <circle cx="160" cy="100" r="2" className="spot" />
+          <circle cx="38" cy="100" r="1.6" className="spot" />
+          <circle cx="282" cy="100" r="1.6" className="spot" />
         </svg>
-        {detections.map((box) => (
-          <div className={`detection tone-${box.tone}`} key={box.label} style={{ top: box.top, left: box.left, width: box.width, height: box.height }}>
+        <div className="pitch-heat" />
+        <svg className="pitch-overlay" viewBox="0 0 320 200">
+          <path className="trail" d="M64 146c14-8 30-22 42-30s24-10 35-15" />
+          <path className="pass" d="M125 107L171 63" />
+        </svg>
+        {detections.map((box, i) => (
+          <div className={`detection tone-${box.tone}`} key={`${box.label}-${i}`} style={{ top: box.top, left: box.left }}>
             <span>{box.label}</span>
           </div>
         ))}
       </div>
       <div className="pitch-hud">
         <span className="live">tracking</span>
-        <span>4 objects · frame 0912</span>
+        <span>{detections.length} objects · frame 0912</span>
       </div>
     </div>
   );

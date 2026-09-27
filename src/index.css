@@ -119,7 +119,7 @@ a { text-decoration: none; }
     repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px calc(100% / 14));
   background-size: calc(100% / 14) calc(100% / 14);
 }
-.digit-canvas svg { position: relative; width: 66%; height: 66%; fill: none; stroke: var(--ink); stroke-width: 11; stroke-linecap: square; }
+.digit-canvas svg.digit-pixels { position: relative; width: 78%; height: 78%; fill: var(--ink); }
 .canvas-note { position: absolute; left: 6%; bottom: 5%; font: clamp(7px, .7vw, 10px) "DM Mono"; opacity: .55; }
 .digit-readout { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 12px; }
 .softmax { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3%; align-items: end; border-bottom: 1px solid var(--ink); padding-bottom: 6px; min-height: 0; }
@@ -179,15 +179,17 @@ a { text-decoration: none; }
 
 /* 05 · voxel engine — isometric chunk */
 .visual.voxel-visual { background: var(--blue) !important; color: var(--paper); }
-.voxel-field { position: absolute; inset: 0; }
+.visual.voxel-visual { container-type: size; }
+/* Fixed-ratio stage (3.3 : 3.2 cube widths), sized to leave room for the HUD. */
+.voxel-field { position: absolute; left: 50%; top: calc(50% - 16px); width: min(74cqw, calc((100cqh - 72px) * 1.03)); aspect-ratio: 3.3 / 3.2; transform: translate(-50%, -50%); }
 .voxel-field .voxel {
-  position: absolute; width: 30%; aspect-ratio: 1 / 1.16; transform: translate(-50%, -50%);
+  position: absolute; width: calc(100% / 3.3); aspect-ratio: 1 / 1.155; transform: translate(-50%, -50%);
   clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   background: conic-gradient(from 300deg, var(--face-top) 0 120deg, var(--face-right) 0 240deg, var(--face-left) 0);
 }
 .voxel-field .tone-grass { --face-top: var(--lime); --face-left: #7fa317; --face-right: #a3cd24; }
 .voxel-field .tone-stone { --face-top: var(--paper); --face-left: #9b998f; --face-right: #c4c1b5; }
-.voxel-hud { position: absolute; left: 6%; bottom: 6%; display: flex; flex-wrap: wrap; gap: 6px; }
+.voxel-hud { position: absolute; left: 6%; bottom: 6%; z-index: 100; display: flex; flex-wrap: wrap; gap: 6px; }
 .voxel-hud span { border: 1px solid rgba(242, 240, 233, .45); padding: 5px 8px; font: clamp(7px, .72vw, 10px) "DM Mono"; }
 
 /* 06 · football tactical intelligence — detection overlay */
@@ -196,11 +198,16 @@ a { text-decoration: none; }
 .pitch-stage { position: absolute; top: 50%; left: 50%; width: min(92cqw, 147cqh); aspect-ratio: 8 / 5; transform: translate(-50%, -50%); }
 .pitch-lines { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: rgba(242, 240, 233, .45); stroke-width: 1.5; }
 .pitch-lines .spot { fill: rgba(242, 240, 233, .45); }
-.detection { position: absolute; border: 1.5px solid var(--lime); }
-.detection span { position: absolute; left: -1.5px; top: -18px; background: var(--lime); color: var(--ink); padding: 2px 5px; font: clamp(6px, .7vw, 9px) "DM Mono"; white-space: nowrap; }
+.pitch-lines .stripe { fill: rgba(242, 240, 233, .035); stroke: none; }
+.pitch-heat { position: absolute; left: 30%; top: 12%; width: 38%; height: 60%; background: radial-gradient(closest-side, rgba(201, 255, 55, .22), rgba(201, 255, 55, 0)); pointer-events: none; }
+.pitch-overlay { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; }
+.pitch-overlay .trail { stroke: var(--paper); stroke-width: 1.2; stroke-dasharray: 2 3; opacity: .7; }
+.pitch-overlay .pass { stroke: var(--lime); stroke-width: 1.2; stroke-dasharray: 4 3; }
+.detection { position: absolute; width: 3.6%; height: 11%; border: 1.5px solid var(--lime); }
+.detection span { position: absolute; left: -1.5px; bottom: calc(100% + 2px); background: var(--lime); color: var(--ink); padding: 2px 5px; font: clamp(6px, .7vw, 9px) "DM Mono"; white-space: nowrap; }
 .detection.tone-secondary { border-color: var(--orange); }
 .detection.tone-secondary span { background: var(--orange); color: var(--paper); }
-.detection.tone-ball { border-color: var(--paper); border-radius: 50%; aspect-ratio: 1; }
+.detection.tone-ball { width: 2%; height: auto; border-color: var(--paper); border-radius: 50%; aspect-ratio: 1; }
 .detection.tone-ball span { background: var(--paper); color: var(--ink); }
 .pitch-hud { position: absolute; right: 6%; bottom: 6%; display: grid; justify-items: end; gap: 5px; font: clamp(7px, .72vw, 10px) "DM Mono"; }
 .pitch-hud span { background: rgba(22, 52, 28, .85); border: 1px solid rgba(242, 240, 233, .3); padding: 4px 7px; }
