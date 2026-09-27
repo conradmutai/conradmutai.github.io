@@ -121,10 +121,10 @@ a { text-decoration: none; }
 }
 .digit-canvas svg { position: relative; width: 66%; height: 66%; fill: none; stroke: var(--ink); stroke-width: 11; stroke-linecap: square; }
 .canvas-note { position: absolute; left: 6%; bottom: 5%; font: clamp(7px, .7vw, 10px) "DM Mono"; opacity: .55; }
-.digit-readout { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 12px; align-content: end; }
+.digit-readout { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 12px; }
 .softmax { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3%; align-items: end; border-bottom: 1px solid var(--ink); padding-bottom: 6px; min-height: 0; }
-.softmax-col { display: grid; align-content: end; justify-items: center; gap: 6px; height: 100%; }
-.softmax-col i { display: block; width: 100%; min-height: 3px; background: rgba(24, 24, 24, .3); }
+.softmax-col { display: grid; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; gap: 6px; height: 100%; }
+.softmax-col i { display: block; align-self: end; width: 100%; min-height: 3px; background: rgba(24, 24, 24, .3); }
 .softmax-col span { font: clamp(7px, .72vw, 10px) "DM Mono"; opacity: .6; }
 .softmax-col.top i { background: var(--ink); }
 .softmax-col.top span { opacity: 1; font-weight: 500; }
@@ -191,14 +191,16 @@ a { text-decoration: none; }
 .voxel-hud span { border: 1px solid rgba(242, 240, 233, .45); padding: 5px 8px; font: clamp(7px, .72vw, 10px) "DM Mono"; }
 
 /* 06 · football tactical intelligence — detection overlay */
-.visual.pitch-visual { background: #16341c !important; color: var(--paper); }
+.visual.pitch-visual { background: #16341c !important; color: var(--paper); container-type: size; }
+/* Pitch keeps its 8:5 shape and is fitted inside the card, whatever the card's shape. */
+.pitch-stage { position: absolute; top: 50%; left: 50%; width: min(92cqw, 147cqh); aspect-ratio: 8 / 5; transform: translate(-50%, -50%); }
 .pitch-lines { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: rgba(242, 240, 233, .45); stroke-width: 1.5; }
 .pitch-lines .spot { fill: rgba(242, 240, 233, .45); }
 .detection { position: absolute; border: 1.5px solid var(--lime); }
 .detection span { position: absolute; left: -1.5px; top: -18px; background: var(--lime); color: var(--ink); padding: 2px 5px; font: clamp(6px, .7vw, 9px) "DM Mono"; white-space: nowrap; }
 .detection.tone-secondary { border-color: var(--orange); }
 .detection.tone-secondary span { background: var(--orange); color: var(--paper); }
-.detection.tone-ball { border-color: var(--paper); border-radius: 50%; }
+.detection.tone-ball { border-color: var(--paper); border-radius: 50%; aspect-ratio: 1; }
 .detection.tone-ball span { background: var(--paper); color: var(--ink); }
 .pitch-hud { position: absolute; right: 6%; bottom: 6%; display: grid; justify-items: end; gap: 5px; font: clamp(7px, .72vw, 10px) "DM Mono"; }
 .pitch-hud span { background: rgba(22, 52, 28, .85); border: 1px solid rgba(242, 240, 233, .3); padding: 4px 7px; }

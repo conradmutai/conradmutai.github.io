@@ -54,11 +54,12 @@ const voxels = [
   { col: 1, row: 2, height: 2, tone: "grass" },
   { col: 2, row: 2, height: 1, tone: "grass" },
 ];
+// Positions are % of the pitch itself (.pitch-stage), not the card.
 const detections = [
-  { label: "#9", top: "22%", left: "16%", width: "15%", height: "30%", tone: "primary" },
-  { label: "#6", top: "48%", left: "44%", width: "14%", height: "28%", tone: "primary" },
-  { label: "#4", top: "18%", left: "68%", width: "14%", height: "29%", tone: "secondary" },
-  { label: "ball", top: "62%", left: "28%", width: "7%", height: "13%", tone: "ball" },
+  { label: "#9", top: "30%", left: "24%", width: "5%", height: "15%", tone: "primary" },
+  { label: "#6", top: "56%", left: "55%", width: "5%", height: "15%", tone: "primary" },
+  { label: "#4", top: "22%", left: "70%", width: "5%", height: "15%", tone: "secondary" },
+  { label: "ball", top: "66%", left: "36%", width: "2.4%", height: "auto", tone: "ball" },
 ];
 
 function ProjectVisual({ type }: { type: Project["visual"] }) {
@@ -67,7 +68,7 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
       <div className="visual digits-visual" aria-hidden="true">
         <div className="digits-frame">
           <div className="digit-canvas">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+            <svg viewBox="0 0 100 100">
               <path d="M24 26h54L44 82" />
               <path d="M32 54h30" />
             </svg>
@@ -200,18 +201,20 @@ function ProjectVisual({ type }: { type: Project["visual"] }) {
   }
   return (
     <div className="visual pitch-visual" aria-hidden="true">
-      <svg className="pitch-lines" viewBox="0 0 320 200" preserveAspectRatio="none">
-        <rect x="6" y="6" width="308" height="188" />
-        <path d="M160 6v188" />
-        <circle cx="160" cy="100" r="30" />
-        <path d="M6 58h34v84H6M314 58h-34v84h34" />
-        <circle cx="160" cy="100" r="2.5" className="spot" />
-      </svg>
-      {detections.map((box) => (
-        <div className={`detection tone-${box.tone}`} key={box.label} style={{ top: box.top, left: box.left, width: box.width, height: box.height }}>
-          <span>{box.label}</span>
-        </div>
-      ))}
+      <div className="pitch-stage">
+        <svg className="pitch-lines" viewBox="0 0 320 200">
+          <rect x="6" y="6" width="308" height="188" />
+          <path d="M160 6v188" />
+          <circle cx="160" cy="100" r="30" />
+          <path d="M6 58h34v84H6M314 58h-34v84h34" />
+          <circle cx="160" cy="100" r="2.5" className="spot" />
+        </svg>
+        {detections.map((box) => (
+          <div className={`detection tone-${box.tone}`} key={box.label} style={{ top: box.top, left: box.left, width: box.width, height: box.height }}>
+            <span>{box.label}</span>
+          </div>
+        ))}
+      </div>
       <div className="pitch-hud">
         <span className="live">tracking</span>
         <span>4 objects · frame 0912</span>
