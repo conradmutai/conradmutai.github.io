@@ -240,6 +240,9 @@ export type JournalEntry = {
   title: string;
   excerpt: string; // one line shown on the journal list
   body: string[]; // one string per paragraph
+  // Optional: for longer entries, split into titled sections (shown after `body`).
+  // e.g. sections: [{ heading: "Why I almost quit", paragraphs: ["...", "..."] }]
+  sections?: Array<{ heading?: string; paragraphs: string[] }>;
   // Optional, shown to the right of the title. 1 image = single photo,
   // 2 = side by side, 3 or more = collage (first 4 are used).
   images?: JournalImage[];

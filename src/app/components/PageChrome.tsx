@@ -11,8 +11,8 @@ export function PageNav() {
       <nav aria-label="Page navigation">
         <Link to="/#work">work</Link>
         <Link to="/about">about</Link>
-        <Link to="/writing">writing</Link>
-        <Link to="/journal">journal</Link>
+        <Link to="/writing">dev journal</Link>
+        <Link to="/journal">off-beat journal</Link>
       </nav>
       <a className="availability" href={`mailto:${siteLinks.email}`}><i /> available for work</a>
     </header>

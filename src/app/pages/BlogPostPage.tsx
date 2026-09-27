@@ -1,30 +1,12 @@
-import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router";
 import { PageFooter, PageNav } from "../components/PageChrome";
 import { blogPosts } from "../content";
+import { useReadingProgress } from "../hooks/useReadingProgress";
 
 export default function BlogPostPage() {
   const { slug } = useParams();
   const post = blogPosts.find((item) => item.slug === slug);
-  const articleRef = useRef<HTMLElement>(null);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const update = () => {
-      const article = articleRef.current;
-      if (!article) return;
-      const scrolled = window.scrollY - article.offsetTop;
-      const scrollable = article.offsetHeight - window.innerHeight;
-      setProgress(scrollable <= 0 ? 1 : Math.min(1, Math.max(0, scrolled / scrollable)));
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, [slug]);
+  const [articleRef, progress] = useReadingProgress<HTMLElement>(slug);
 
   // Unknown slugs fall back to the index rather than the generic 404.
   if (!post) return <Navigate to="/writing" replace />;
@@ -38,7 +20,7 @@ export default function BlogPostPage() {
       <main>
         <article ref={articleRef}>
           <header className="article-header">
-            <Link className="back-link" to="/writing">← All field notes</Link>
+            <Link className="back-link" to="/writing">← All dev journal posts</Link>
             <div className="article-meta"><span>{post.category}</span><span>{post.date}</span><span>{post.read}</span></div>
             <h1>{post.title}</h1>
             <p>{post.intro}</p>

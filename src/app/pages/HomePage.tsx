@@ -323,8 +323,8 @@ export default function HomePage() {
         <nav className={`nav-links ${menuOpen ? "open" : ""}`} aria-label="Main navigation">
           <a href="#work" onClick={() => setMenuOpen(false)}>work</a>
           <Link to="/about" onClick={() => setMenuOpen(false)}>about</Link>
-          <Link to="/writing" onClick={() => setMenuOpen(false)}>writing</Link>
-          <Link to="/journal" onClick={() => setMenuOpen(false)}>journal</Link>
+          <Link to="/writing" onClick={() => setMenuOpen(false)}>dev journal</Link>
+          <Link to="/journal" onClick={() => setMenuOpen(false)}>off-beat journal</Link>
         </nav>
         <div className="nav-actions">
           <a className="availability" href={`mailto:${siteLinks.email}`}><i /> available for work</a>
@@ -460,7 +460,7 @@ export default function HomePage() {
       <section className="writing section" id="writing">
         <div className="section-head writing-head">
           <div>
-            <span className="eyebrow">03 / field notes</span>
+            <span className="eyebrow">03 / dev journal</span>
             <h2>Thinking out loud</h2>
           </div>
           <p>Dispatches on code, design, and the messy process of figuring things out.</p>
@@ -478,7 +478,7 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
-        <Link className="text-link dark-link" to="/writing">read all notes <ArrowUpRight /></Link>
+        <Link className="text-link dark-link" to="/writing">read the dev journal <ArrowUpRight /></Link>
       </section>
 
       <footer>

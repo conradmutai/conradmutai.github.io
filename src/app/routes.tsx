@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import WritingPage from "./pages/WritingPage";
 import BlogPostPage from "./pages/BlogPostPage";
+import { ScrollChrome } from "./components/ScrollChrome";
 import JournalPage from "./pages/JournalPage";
 import JournalEntryPage from "./pages/JournalEntryPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -12,6 +13,7 @@ function Root() {
     <>
       <ScrollRestoration />
       <Outlet />
+      <ScrollChrome />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from "react-router";
 import { PageFooter, PageNav } from "../components/PageChrome";
 import { journalEntries, type JournalImage } from "../content";
+import { useReadingProgress } from "../hooks/useReadingProgress";
 
 function EntryMedia({ images }: { images: JournalImage[] }) {
   const shown = images.slice(0, 4);
@@ -19,17 +20,24 @@ function EntryMedia({ images }: { images: JournalImage[] }) {
 export default function JournalEntryPage() {
   const { slug } = useParams();
   const entry = journalEntries.find((item) => item.slug === slug);
+  const [articleRef, progress] = useReadingProgress<HTMLElement>(slug);
 
   if (!entry) return <Navigate to="/journal" replace />;
 
   const next = journalEntries.length > 1 ? journalEntries[(journalEntries.indexOf(entry) + 1) % journalEntries.length] : null;
   const images = entry.images?.filter((image) => image.src) ?? [];
+  const position = journalEntries.length - 1 - journalEntries.indexOf(entry);
+  // `body` paragraphs come first as an untitled section, then any titled sections.
+  const sections = [
+    ...(entry.body.length ? [{ heading: undefined, paragraphs: entry.body }] : []),
+    ...(entry.sections ?? []),
+  ];
 
   return (
     <div className="interior-page article-page journal-entry-page">
       <PageNav />
       <main>
-        <article>
+        <article ref={articleRef}>
           <header className={`article-header${images.length ? " has-media" : ""}`}>
             <div className="entry-heading">
               <Link className="back-link" to="/journal">← Off-beat journal</Link>
@@ -44,9 +52,27 @@ export default function JournalEntryPage() {
             </div>
             {images.length > 0 && <EntryMedia images={images} />}
           </header>
-          <div className="article-body journal-body">
+          <div className="article-body">
+            <aside>
+              <span>Entry {String(position).padStart(3, "0")}</span>
+              <div
+                className="article-progress"
+                role="progressbar"
+                aria-label="Reading progress"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={Math.round(progress * 100)}
+              >
+                <i style={{ width: `${progress * 100}%` }} />
+              </div>
+            </aside>
             <div className="article-copy">
-              {entry.body.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+              {sections.map((section, i) => (
+                <section key={section.heading ?? i}>
+                  {section.heading && <h2>{section.heading}</h2>}
+                  {section.paragraphs.map((paragraph, j) => <p key={j}>{paragraph}</p>)}
+                </section>
+              ))}
             </div>
           </div>
         </article>
