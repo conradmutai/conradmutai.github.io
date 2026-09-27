@@ -242,6 +242,7 @@ export type JournalEntry = {
   slug: string; // URL: /journal/<slug>. Lowercase-with-dashes, e.g. "first-entry"
   date: string; // e.g. "Sep 27, 2026"
   category: string; // e.g. "Movies", "Sports", "Life"
+  series?: string;
   title: string;
   excerpt: string; // one line shown on the journal list
   // One string per paragraph. To put an image between paragraphs, add an object:
@@ -260,36 +261,50 @@ export type JournalEntry = {
 // Newest first. Empty fields are fine: the pages skip anything left blank.
 export const journalEntries: JournalEntry[] = [
   {
-    slug: "One Piece is the Greatest Piece of Fiction",
+    slug: "New beginnings",
     date: "Sep 27th, 2026",
-    category: "Movies/TV",
-    title: "Why I Fell in Love with One Piece",
-    rating: 5.0,
-    excerpt: "The Greatest Piece of Fiction.",
+    category: "My thoughts",
+    title: "A New Dawn",
+    excerpt: "Pushing my thoughts out to the world even though they might not seem relevant.",
     body: [
-      "One Piece was a piece of media that everyone I knew wrote off as too long, tedious, repetitive, and a whole lot of nonsense that people spouted.",
-      { src: "/journal/going-merry.jpeg", alt: "The Going Merry at sea", caption: "Kaya give the Going Merry to the crew in Episode 17" },
-      "However, one day someone I ended up talking with someone who was an avid media connoisseur like me (corny I know), who argued that my opinions on One Piece were prejudice and that I should give the show a try. I took that personally, so I embarked me on a journey that I would never turn my back on since I started 9 years ago.",
-    ],
-    sections: [
-      {
-        heading: "Break of Romance Dawn",
-        paragraphs: [
-          "Starting off One Piece with Romance Dawn was a mystery to me, it wasn't the One Piece I saw online which only consisted of cool fight moments, and tough phrases; it was a slow start to the story of a young boy who's ambitions were to be Pirate King, as he pesters his idol Red-Haired Shanks (the GOAT).",
-          "I could go on for ages about each arc, but as this is just a think piece, let me cut it short, it was a hilarious and great start. We started learning about our main character, a character who's as present as every father of the main cast, and the whole basis of the story to come."
-        ]
-      },
-      {
-        heading: "The Initial Crew",
-        paragraphs: [
-          "The f"
-        ]
-      },
-    ],
-    images: [
-      { src: "/journal/luffy.jpg", alt: "Luffy's inspiring smile" },
-      { src: "/journal/one-piece-team.webp", alt: "Original four Straw Hats" },
-      { src: "/journal/shanks.webp", alt: "Shanks the GOAT." },
+      "I started this website initially to display my coding projects, and to write about my learning experience, my thought process, and more. However, in the process of making thsi website, I felt like as someone who enjoys media, and many other things, this might be the best chance I have to write about what I love. So I decided to make the off-beat journal. With this I want to write about pieces of media I greatly enjoy, the sports I love and maybe do research pieces of past seasons and runs of all time great sporting teams/people, and then about my own personal journey.",
+      "So starting this week, I will be writing a weekly think pieces and/or personal journals to everyone, and maybe one day this could be a way for my kids in the future to get a glimpse of me and how I've grown over the years. And maybe I will pick up a few fans who gain some interest in the writing I put out.",
+      "I also have some thoughts in the future, like maybe making video essays on the topics I write here on these blog posts, and maybe even vlogs to accompany some of the journals I publish to bring people more into my day to day life. But at the end these are all just plans for the future; I hope these will be able to entertain people and maybe inspire others to share what they love."
     ],
   },
+  // {
+  //   slug: "One Piece is the Greatest Piece of Fiction",
+  //   date: "Sep 27th, 2026",
+  //   category: "Movies/TV",
+  //   series: "One Piece",
+  //   title: "Why I Fell in Love with One Piece - Part 1",
+  //   rating: 5.0,
+  //   excerpt: "The East Blue Saga",
+  //   body: [
+  //     "One Piece was a piece of media that everyone I knew wrote off as too long, tedious, repetitive, and a whole lot of nonsense that people spouted.",
+  //     { src: "/journal/going-merry.jpeg", alt: "The Going Merry at sea", caption: "Kaya give the Going Merry to the crew in Episode 17" },
+  //     "However, one day someone I ended up talking with someone who was an avid media connoisseur like me (corny I know), who argued that my opinions on One Piece were prejudice and that I should give the show a try. I took that personally, so I embarked me on a journey that I would never turn my back on since I started 9 years ago.",
+  //   ],
+  //   sections: [
+  //     {
+  //       heading: "Break of Romance Dawn",
+  //       paragraphs: [
+  //         "Starting off One Piece with Romance Dawn was a mystery to me, it wasn't the One Piece I saw online which only consisted of cool fight moments, and tough phrases; it was a slow start to the story of a young boy who's ambitions were to be Pirate King, as he pesters his idol Red-Haired Shanks (the GOAT).",
+  //         "This arc's beginning was simple yet beautiful, we got to see the initial ambition of the boy who is yet to become king, not only as a reader/watcher but as someone who feels like we are in the world and standing aside him on his journey. We see his strengths as a fighter and as a person.",
+  //         "This intimidating character, tied up on a post, eyes shaded, he seemed like a killer. This was the Zoro we meet at first, someone who has no care for anyone, but this pest in the form of Luffy is able to drag some light out of the man set to be executed. Luffy's joy is something that I find myself so attached to "
+  //       ]
+  //     },
+  //     {
+  //       heading: "The Initial Crew",
+  //       paragraphs: [
+  //         "The f"
+  //       ]
+  //     },
+  //   ],
+  //   images: [
+  //     { src: "/journal/luffy.jpg", alt: "Luffy's inspiring smile" },
+  //     { src: "/journal/one-piece-team.webp", alt: "Original four Straw Hats" },
+  //     { src: "/journal/shanks.webp", alt: "Shanks the GOAT." },
+  //   ],
+  // },
 ];
