@@ -12,6 +12,7 @@ export function PageNav() {
         <Link to="/#work">work</Link>
         <Link to="/about">about</Link>
         <Link to="/writing">writing</Link>
+        <Link to="/journal">journal</Link>
       </nav>
       <a className="availability" href={`mailto:${siteLinks.email}`}><i /> available for work</a>
     </header>
@@ -27,7 +28,7 @@ export function PageFooter() {
       </div>
       <div className="page-footer-meta">
         <a href={`mailto:${siteLinks.email}`}>{siteLinks.email}</a>
-        <Link to="/notes">off the clock →</Link>
+        <Link to="/journal">off-beat journal →</Link>
         <span>© 2025 Conrad Mutai</span>
       </div>
     </footer>

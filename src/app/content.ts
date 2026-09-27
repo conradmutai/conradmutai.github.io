@@ -224,27 +224,36 @@ export const siteLinks = {
 };
 
 /* ------------------------------------------------------------------ */
-/* Notes: the non-code side (movies, sports, life). Lives at /notes,   */
-/* kept off the homepage and out of /writing on purpose.               */
+/* Off-beat Journal: the non-code side (movies, sports, life).         */
+/* Lives at /journal, kept off the homepage and out of /writing.       */
 /* ------------------------------------------------------------------ */
 
-export type Note = {
-  slug: string; // URL: /notes/<slug>. Lowercase-with-dashes, e.g. "first-note"
+export type JournalImage = {
+  src: string; // put files in public/journal/ and use "/journal/<file>", e.g. "/journal/stadium.jpg"
+  alt: string; // short description of the photo, for screen readers
+};
+
+export type JournalEntry = {
+  slug: string; // URL: /journal/<slug>. Lowercase-with-dashes, e.g. "first-entry"
   date: string; // e.g. "Sep 27, 2026"
   category: string; // e.g. "Movies", "Sports", "Life"
   title: string;
-  excerpt: string; // one line shown on the /notes list
+  excerpt: string; // one line shown on the journal list
   body: string[]; // one string per paragraph
+  // Optional, shown to the right of the title. 1 image = single photo,
+  // 2 = side by side, 3 or more = collage (first 4 are used).
+  images?: JournalImage[];
 };
 
 // Newest first. Empty fields are fine: the pages skip anything left blank.
-export const notes: Note[] = [
+export const journalEntries: JournalEntry[] = [
   {
-    slug: "first-note",
+    slug: "first-entry",
     date: "",
     category: "",
     title: "",
     excerpt: "",
     body: [],
+    images: [],
   },
 ];

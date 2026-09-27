@@ -324,6 +324,7 @@ export default function HomePage() {
           <a href="#work" onClick={() => setMenuOpen(false)}>work</a>
           <Link to="/about" onClick={() => setMenuOpen(false)}>about</Link>
           <Link to="/writing" onClick={() => setMenuOpen(false)}>writing</Link>
+          <Link to="/journal" onClick={() => setMenuOpen(false)}>journal</Link>
         </nav>
         <div className="nav-actions">
           <a className="availability" href={`mailto:${siteLinks.email}`}><i /> available for work</a>
@@ -490,7 +491,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="footer-bottom">
-          <Link className="footer-notes" to="/notes">off the clock →</Link>
+          <Link className="footer-notes" to="/journal">off-beat journal →</Link>
           <span>Built with care + too much coffee</span>
           <div className="socials">
             <a href={siteLinks.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a>
