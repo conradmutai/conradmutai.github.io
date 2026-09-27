@@ -264,9 +264,27 @@ export const journalEntries: JournalEntry[] = [
     date: "Sep 27th, 2026",
     category: "Movies/TV",
     title: "Why I Fell in Love with One Piece",
+    rating: 5.0,
     excerpt: "The Greatest Piece of Fiction.",
     body: [
-      "One Piece was a show that started off as a piece of media that everyone I knew wrote off as too long, tedious, repetitive, and a whole lot of nonsense that people spouted."
+      "One Piece was a piece of media that everyone I knew wrote off as too long, tedious, repetitive, and a whole lot of nonsense that people spouted.",
+      { src: "/journal/going-merry.jpeg", alt: "The Going Merry at sea", caption: "Kaya give the Going Merry to the crew in Episode 17" },
+      "However, one day someone I ended up talking with someone who was an avid media connoisseur like me (corny I know), who argued that my opinions on One Piece were prejudice and that I should give the show a try. I took that personally, so I embarked me on a journey that I would never turn my back on since I started 9 years ago.",
+    ],
+    sections: [
+      {
+        heading: "Break of Romance Dawn",
+        paragraphs: [
+          "Starting off One Piece with Romance Dawn was a mystery to me, it wasn't the One Piece I saw online which only consisted of cool fight moments, and tough phrases; it was a slow start to the story of a young boy who's ambitions were to be Pirate King, as he pesters his idol Red-Haired Shanks (the GOAT).",
+          "I could go on for ages about each arc, but as this is just a think piece, let me cut it short, it was a hilarious and great start. We started learning about our main character, a character who's as present as every father of the main cast, and the whole basis of the story to come."
+        ]
+      },
+      {
+        heading: "The Initial Crew",
+        paragraphs: [
+          "The f"
+        ]
+      },
     ],
     images: [
       { src: "/journal/luffy.jpg", alt: "Luffy's inspiring smile" },
