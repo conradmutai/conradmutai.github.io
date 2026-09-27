@@ -248,12 +248,18 @@ export type JournalEntry = {
 // Newest first. Empty fields are fine: the pages skip anything left blank.
 export const journalEntries: JournalEntry[] = [
   {
-    slug: "first-entry",
-    date: "",
-    category: "",
-    title: "",
-    excerpt: "",
-    body: [],
-    images: [],
+    slug: "One Piece is the Greatest Piece of Fiction",
+    date: "Sep 27th, 2026",
+    category: "Movies/TV",
+    title: "Why I Fell in Love with One Piece",
+    excerpt: "The Greatest Piece of Fiction.",
+    body: [
+      "One Piece was a show that started off as a piece of media that everyone I knew wrote off as too long, tedious, repetitive, and a whole lot of nonsense that people spouted."
+    ],
+    images: [
+      { src: "/journal/luffy.jpg", alt: "Luffy's inspiring smile" },
+      { src: "/journal/one-piece-team.webp", alt: "Original four Straw Hats" },
+      { src: "/journal/shanks.webp", alt: "Shanks the GOAT." },
+    ],
   },
 ];
