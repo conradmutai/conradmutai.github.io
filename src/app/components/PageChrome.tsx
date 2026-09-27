@@ -27,6 +27,7 @@ export function PageFooter() {
       </div>
       <div className="page-footer-meta">
         <a href={`mailto:${siteLinks.email}`}>{siteLinks.email}</a>
+        <Link to="/notes">off the clock →</Link>
         <span>© 2025 Conrad Mutai</span>
       </div>
     </footer>

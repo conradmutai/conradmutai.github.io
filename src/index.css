@@ -250,6 +250,8 @@ footer h2 em { font-family: Georgia, serif; font-weight: 400; text-transform: lo
 .footer-contact button { border: 1px solid #555; color: #aaa; background: transparent; border-radius: 50px; display: flex; align-items: center; gap: 7px; padding: 9px 12px; font: 9px "DM Mono"; text-transform: uppercase; cursor: pointer; }
 .footer-bottom { margin-top: 110px; padding-top: 24px; border-top: 1px solid #383838; display: grid; grid-template-columns: 1fr 1fr 1fr; font: 9px "DM Mono"; color: #777; text-transform: uppercase; align-items: center; }
 .footer-bottom > span:nth-child(2) { text-align: center; }
+.footer-notes { color: #aaa; transition: color .2s ease; }
+.footer-notes:hover, .footer-notes:focus-visible { color: var(--lime); }
 .socials { display: flex; justify-content: flex-end; gap: 8px; }
 .socials a { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #444; border-radius: 50%; color: #aaa; transition: .2s; }
 .socials a:hover { background: var(--lime); color: var(--ink); border-color: var(--lime); }
@@ -310,7 +312,8 @@ footer h2 em { font-family: Georgia, serif; font-weight: 400; text-transform: lo
 .page-nav nav a { position: relative; }
 .page-nav nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -6px; height: 1px; background: currentColor; transition: right .2s; }
 .page-nav nav a:hover::after { right: 0; }
-.interior-page { min-height: 100vh; background: var(--paper); }
+.interior-page { min-height: 100vh; display: flex; flex-direction: column; background: var(--paper); }
+.interior-page > main { flex: 1; }
 .about-hero, .writing-hero { padding: 9vw 4.5vw 5vw; }
 .about-hero h1, .writing-hero h1, .not-found h1 { margin: 0; font: 600 clamp(52px,8.2vw,128px)/.92 "Unbounded"; letter-spacing: -.075em; text-transform: uppercase; }
 .about-hero h1 em, .writing-hero h1 em, .not-found h1 em { font-family: Georgia, serif; font-weight: 400; text-transform: lowercase; color: var(--blue); }
@@ -384,6 +387,12 @@ footer h2 em { font-family: Georgia, serif; font-weight: 400; text-transform: lo
 .next-article span { grid-column: 1 / -1; font: 9px "DM Mono"; text-transform: uppercase; }
 .next-article strong { max-width: 800px; font: 500 clamp(24px,3.3vw,47px)/1.1 "Unbounded"; letter-spacing: -.05em; }
 .next-article i { font-size: 32px; font-style: normal; align-self: end; }
+/* Notes (/notes): paper background, orange accent to set it apart from /writing */
+.notes-page .writing-hero h1 em { color: var(--orange); }
+.notes-page .writing-card:hover .writing-go { color: var(--orange); }
+.note-page .article-meta { color: var(--orange); }
+.note-body { grid-template-columns: 1fr; max-width: 760px; min-height: 20vh; }
+.note-page .next-article { background: var(--orange); color: var(--paper); }
 .not-found main { min-height: calc(100vh - 82px); display: flex; flex-direction: column; justify-content: center; padding: 4.5vw; }
 .not-found main > a { margin-top: 45px; font: 11px "DM Mono"; text-transform: uppercase; }
 

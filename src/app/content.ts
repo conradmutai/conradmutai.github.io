@@ -222,3 +222,29 @@ export const siteLinks = {
   github: "https://github.com/conradmutai",
   linkedin: "https://linkedin.com",
 };
+
+/* ------------------------------------------------------------------ */
+/* Notes: the non-code side (movies, sports, life). Lives at /notes,   */
+/* kept off the homepage and out of /writing on purpose.               */
+/* ------------------------------------------------------------------ */
+
+export type Note = {
+  slug: string; // URL: /notes/<slug>. Lowercase-with-dashes, e.g. "first-note"
+  date: string; // e.g. "Sep 27, 2026"
+  category: string; // e.g. "Movies", "Sports", "Life"
+  title: string;
+  excerpt: string; // one line shown on the /notes list
+  body: string[]; // one string per paragraph
+};
+
+// Newest first. Empty fields are fine: the pages skip anything left blank.
+export const notes: Note[] = [
+  {
+    slug: "first-note",
+    date: "",
+    category: "",
+    title: "",
+    excerpt: "",
+    body: [],
+  },
+];

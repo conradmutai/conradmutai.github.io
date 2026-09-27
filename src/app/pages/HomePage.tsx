@@ -490,7 +490,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span></span>
+          <Link className="footer-notes" to="/notes">off the clock →</Link>
           <span>Built with care + too much coffee</span>
           <div className="socials">
             <a href={siteLinks.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github /></a>
