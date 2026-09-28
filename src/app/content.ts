@@ -272,39 +272,53 @@ export const journalEntries: JournalEntry[] = [
       "I also have some thoughts in the future, like maybe making video essays on the topics I write here on these blog posts, and maybe even vlogs to accompany some of the journals I publish to bring people more into my day to day life. But at the end these are all just plans for the future; I hope these will be able to entertain people and maybe inspire others to share what they love."
     ],
   },
-  // {
-  //   slug: "One Piece is the Greatest Piece of Fiction",
-  //   date: "Sep 27th, 2026",
-  //   category: "Movies/TV",
-  //   series: "One Piece",
-  //   title: "Why I Fell in Love with One Piece - Part 1",
-  //   rating: 5.0,
-  //   excerpt: "The East Blue Saga",
-  //   body: [
-  //     "One Piece was a piece of media that everyone I knew wrote off as too long, tedious, repetitive, and a whole lot of nonsense that people spouted.",
-  //     { src: "/journal/going-merry.jpeg", alt: "The Going Merry at sea", caption: "Kaya give the Going Merry to the crew in Episode 17" },
-  //     "However, one day someone I ended up talking with someone who was an avid media connoisseur like me (corny I know), who argued that my opinions on One Piece were prejudice and that I should give the show a try. I took that personally, so I embarked me on a journey that I would never turn my back on since I started 9 years ago.",
-  //   ],
-  //   sections: [
-  //     {
-  //       heading: "Break of Romance Dawn",
-  //       paragraphs: [
-  //         "Starting off One Piece with Romance Dawn was a mystery to me, it wasn't the One Piece I saw online which only consisted of cool fight moments, and tough phrases; it was a slow start to the story of a young boy who's ambitions were to be Pirate King, as he pesters his idol Red-Haired Shanks (the GOAT).",
-  //         "This arc's beginning was simple yet beautiful, we got to see the initial ambition of the boy who is yet to become king, not only as a reader/watcher but as someone who feels like we are in the world and standing aside him on his journey. We see his strengths as a fighter and as a person.",
-  //         "This intimidating character, tied up on a post, eyes shaded, he seemed like a killer. This was the Zoro we meet at first, someone who has no care for anyone, but this pest in the form of Luffy is able to drag some light out of the man set to be executed. Luffy's joy is something that I find myself so attached to "
-  //       ]
-  //     },
-  //     {
-  //       heading: "The Initial Crew",
-  //       paragraphs: [
-  //         "The f"
-  //       ]
-  //     },
-  //   ],
-  //   images: [
-  //     { src: "/journal/luffy.jpg", alt: "Luffy's inspiring smile" },
-  //     { src: "/journal/one-piece-team.webp", alt: "Original four Straw Hats" },
-  //     { src: "/journal/shanks.webp", alt: "Shanks the GOAT." },
-  //   ],
-  // },
+  {
+    slug: "One Piece is the Greatest Piece of Fiction",
+    date: "Sep 28th, 2026",
+    category: "Movies/TV",
+    series: "One Piece",
+    title: "Why I Fell in Love with One Piece - Part 1",
+    rating: 5.0,
+    excerpt: "The East Blue Saga - Establishing the Thesis of the Whole Series, Recruiting Season, and the Emotional Whirlpool",
+    body: [
+      "One Piece was a piece of media that everyone I knew wrote off as too long, tedious, repetitive, and a whole lot of nonsense that people spouted.",
+      { src: "/journal/going-merry.jpeg", alt: "The Going Merry at sea", caption: "Kaya gives the Going Merry to the crew in Episode 17" },
+      "However, one day I ended up talking with someone who was an avid media connoisseur like me (corny I know), who argued that my opinions on One Piece were prejudiced and that I should give the show a try. I took that personally, so I embarked on a journey that I would never turn my back on since I started 9 years ago.",
+    ],
+    sections: [
+      {
+        heading: "The Beauty of the Story's Thesis",
+        paragraphs: [
+          "One Piece was originally hyped up to be this cool fighting Shonen, the same as most, and that was it to the story. But as I read, there were a few things I picked up on that I really loved, and they carried through the whole story. That being: found family over blood family, dreams fueling the future, and villainy born from the situations around them.",
+          "I know it is controversial to most, and I want to clarify that I love my family deeply and they are always at the top of my list. However, One Piece highlights one thing, and it is that your found family can be just as valuable as your real family. This aspect of the story resonated deeply with me because it made us feel like we were part of this found family, and it also relates to my real life situation where I am so far away from my family that my friends have essentially become my family. It draws to my reality, as I have people who were willing to do anything to help me and vice versa, the same way the crew does for each other. We see this through the fight for Nami in Arlong Park, and they do it even though she insists they don't. Oda further succeeds at creating a pseudo-familial relation between the reader and the characters as we start to deeply care about them and their emotional state, and I think that's what drew me so deep into the story.",
+          "Another thing that I would say was very addictive is the infinite ambition of the main cast, from Luffy's dream of being King of the Pirates, Zoro's goal of being the greatest swordsman, Nami's goal to map the whole world, and Sanji finding the All Blue (the less we talk about WhoSlopp), they're all really addictive. We have a crew with everyone super ambitious to reach their goal no matter what, even overcoming their challenges in order to do this. For instance, Zoro ran into Mihawk, the strongest swordsman in the world, and took a humiliating loss. However, he held onto the hope to keep going no matter what, and despite the failure his ambition to continue almost made me shed a tear. It is a story where even with failure their resolution doesn't break, and seeing a taste of it in the beginning was enough to draw me in like a fish on a hook.",
+          { src: "/journal/one-piece/zoro-crying.webp", alt: "Zoro post loss to Mihawk at Baratie", caption: "He lied." },
+          "Then the villainy. Unlike the typical villain who is just evil because they want to rule the world, we see villains shaped by their situations, just like in real life. Arlong is the seed of this: in East Blue he's a racist tyrant who hates humans, and Oda later shows the oppression behind that hate. Even though it isn't something we should do in real life, it is understandable how someone could come to believe there is an ingrained evil in humans based off their own experience. Oda's choice not to sugarcoat the reality of the world was something that was just so appealing to me. And this continues going forward, because not hiding the ideas of our world in his story is what makes it so great to me, the idea that villainy is created by the evil of his world just like ours."
+        ]
+      },
+      {
+        heading: "Recruiting Season",
+        paragraphs: [
+          "What I love about Luffy is that he knows he can't do this alone. He needs a crew to make his dream come true, and he's got gaps that other people fill. But he also doesn't make the crew all about his own dream. He brings in people who share his level of ambition, and that's what draws them to him.",
+          "Zoro is the clearest example. When Luffy first meets him tied up and waiting for execution, he tells Zoro he's going to be King of the Pirates. Zoro's dream is just as outlandish, becoming the world's greatest swordsman, and Luffy takes it seriously instead of laughing it off. That mutual respect is what makes their bond work. Both of them have a goal that sounds ridiculous, and they push each other to the limit to reach it.",
+          { src: "/journal/one-piece/luffy-zoro.webp", alt: "Luffy asks Zoro to join his crew", caption: "Luffy asks Zoro to join his crew." },
+          "Usopp and Sanji follow the same pattern. Luffy never sells them on his dream, he backs theirs, and that's why they stay. A crew built on shared ambition instead of power levels is why the found-family theme hits so hard.",
+        ]
+      },
+      {
+        heading: "The Emotional Whirlpool",
+        paragraphs: [
+          "For most of the East Blue saga, One Piece plays like a goofy adventure, and Arlong Park is where the darkness gets personal. This is when Oda makes the sudden switch and the story stops being that simple. It's a party every day for some people in this world, and for others it's a continuous struggle.",
+          "Arlong Park deals with themes we're uncomfortable discussing in our world: slavery, exploitation, murder, oppression, racism, and how evil brews evil. Nami is someone who was about to fall into that cycle. Arlong's racist tyranny took over her town and enslaved her because she was a useful human, then he killed her mother, Bellemere, which pushed her to the edge. He took her freedom and her family, and she started to hate the fishmen and wish for their deaths. That's the dark reality that exists in our world too, since people tend to become who they are based on the situations they're in.",
+          { src: "/journal/one-piece/nami-help.webp", alt: "Nami's plea for help", caption: "Nami asking for help from Luffy to defeat Arlong." },
+          "And then Luffy breaks the cycle. After years of carrying it alone, Nami finally cries out for help, and he doesn't hesitate. He puts his hat on her head and goes to war for her, and the rest of the crew is right there with him. This is where the recruiting season pays off. Nami didn't need a stronger captain, she needed a family that would fight for her, and that's what makes this the emotional peak of the saga.",
+        ]
+      },
+    ],
+    images: [
+      { src: "/journal/luffy.jpg", alt: "Luffy's inspiring smile" },
+      { src: "/journal/one-piece-team.webp", alt: "Original four Straw Hats" },
+      { src: "/journal/shanks.webp", alt: "Shanks the GOAT." },
+    ],
+  },
 ];
